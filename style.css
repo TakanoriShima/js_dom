@@ -1,0 +1,12 @@
+@charset 'utf8';
+
+table, tr, th, td{
+    border: solid 1px;
+}
+
+h1, h2, table {
+    margin:20px auto;
+    width: 50%;
+    text-align: center;
+}
+
