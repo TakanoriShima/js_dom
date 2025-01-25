@@ -61,21 +61,16 @@ class UserManager{
         users.forEach(user => {
             stddev += Math.pow(user.score - mean, 2);
         })
-        // console.log(stddev);
         stddev /= users.length;
         stddev = Math.sqrt(stddev);
-        // console.log('1: ' + stddev);
         return stddev.toFixed(2);
     }
 
     setDeviation(users){
         let mean = this.calculateMeanScore(users);
         let stddev = this.calculateStddev(users);
-        // console.log(mean);
-        // console.log(stddev);
         users.forEach(user => {
             let deviation = ((user.score - mean) * 10) / stddev + 50;
-            // console.log(deviation);
             deviation = deviation.toFixed(2);
             user.deviation = deviation;
         })
@@ -84,8 +79,13 @@ class UserManager{
     diaplayUsers(users){
         const dispUsers = document.getElementById('dispUsers');
         
+        const mean = document.getElementById('mean');
+        mean.textContent = this.calculateMeanScore(users);
+        mean.style.color = 'red';
+
         const stddev = document.getElementById('stddev');
         stddev.textContent = this.calculateStddev(users);
+        stddev.style.color = 'blue';
 
         this.setDeviation(users);
 
@@ -124,10 +124,6 @@ class UserManager{
             
             dispUsers.appendChild(tr);
         });
-
-        const mean = document.getElementById('mean');
-        mean.textContent = this.calculateMeanScore(users);
-
     }
 }
 
@@ -144,9 +140,6 @@ userManager.addUsers(shima);
 userManager.addUsers(goto);
 userManager.addUsers(yamada);
 userManager.addUsers(aoki);
-
-// console.log(userManager.getUsers());
-// console.log(userManager.calculateMeanScore());
 
 userManager.diaplayUsers(userManager.getUsers());
 
