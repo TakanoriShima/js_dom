@@ -54,6 +54,16 @@ class UserManager{
         return Math.floor(sum / this.users.length);
     }
 
+    calculateMeanAge(users){
+        const ages = users.map(user => user.age);
+        let sum = 0;
+        ages.forEach(age => {
+            sum += age;
+        });
+
+        return Math.floor(sum / ages.length);
+    }
+
     calculateStddev(users){
         let mean = this.calculateMeanScore(users);
         let stddev = 0;
@@ -74,6 +84,14 @@ class UserManager{
             deviation = deviation.toFixed(2);
             user.deviation = deviation;
         })
+    }
+
+    getAgeMean(users){
+        // const ages = users.map(user => user.age);
+        // console.log(ages);
+        let meanAge = this.calculateMeanAge(users);
+        console.log(meanAge);
+        return meanAge;
     }
 
     dislayTableHeader(){
@@ -116,6 +134,10 @@ class UserManager{
 
         dispUsers.innerHTML = '';
         this.dislayTableHeader(dispUsers);
+
+        const meanAge = document.getElementById('meanAge');
+        meanAge.textContent = this.getAgeMean(users) + '歳';
+        // meanAge.style.color = '';
 
         const count = document.getElementById('count');
         count.textContent = users.length + '人';
@@ -198,6 +220,7 @@ userManager.addUsers(shima);
 userManager.addUsers(goto);
 userManager.addUsers(yamada);
 userManager.addUsers(aoki);
+// userManager.removeUser(aoki);
 
 userManager.diaplayUsers(userManager.getUsers());
 
