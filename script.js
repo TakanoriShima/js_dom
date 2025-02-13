@@ -51,7 +51,7 @@ class UserManager{
             sum += user.score;
         });
 
-        return Math.floor(sum / this.users.length);
+        return Math.floor(sum / users.length);
     }
 
     calculateMeanAge(users){
