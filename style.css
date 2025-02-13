@@ -10,3 +10,15 @@ h1, h2, table {
     text-align: center;
 }
 
+select#gender {
+    width: 183px;
+    margin: 0 auto;
+    display: block;
+}
+
+span#count {
+    display: block;
+    width: 5%;
+    margin: 0 auto;
+    margin-top: 19px;
+}

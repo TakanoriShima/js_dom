@@ -76,8 +76,50 @@ class UserManager{
         })
     }
 
+    dislayTableHeader(){
+        
+        let tr = document.createElement('tr');
+
+        let th = document.createElement('th');
+        th.textContent = 'クラス名';
+        tr.appendChild(th);
+
+        th = document.createElement('th');
+        th.textContent = '名前';
+        tr.appendChild(th);
+
+        th = document.createElement('th');
+        th.textContent = '年齢';
+        tr.appendChild(th);
+        
+        th = document.createElement('th');
+        th.textContent = '性別';
+        tr.appendChild(th);
+        
+        th = document.createElement('th');
+        th.textContent = '得点';
+        tr.appendChild(th);
+
+        th = document.createElement('th');
+        th.textContent = '偏差値';
+        tr.appendChild(th);
+        
+        th = document.createElement('th');
+        th.textContent = '特別アイテム';
+        tr.appendChild(th);
+
+        dispUsers.appendChild(tr);
+    }
+
     diaplayUsers(users){
         const dispUsers = document.getElementById('dispUsers');
+
+        dispUsers.innerHTML = '';
+        this.dislayTableHeader(dispUsers);
+
+        const count = document.getElementById('count');
+        count.textContent = users.length + '人';
+        count.style.color = 'green';
         
         const mean = document.getElementById('mean');
         mean.textContent = this.calculateMeanScore(users);
@@ -108,6 +150,11 @@ class UserManager{
             
             td = document.createElement('td');
             td.textContent = user.gender === 'male' ? '男性' : '女性';
+            if(user.gender === 'male'){
+                td.style.color = 'blue';
+            }else{
+                td.style.color = 'red';
+            }
             tr.appendChild(td);
             
             td = document.createElement('td');
@@ -124,6 +171,17 @@ class UserManager{
             
             dispUsers.appendChild(tr);
         });
+    }
+
+    getfilteredUsersByGender(gender){
+        console.log(gender);
+        console.log(this.users);
+        let filteredUsers = this.users;
+        if(gender !== ''){
+            filteredUsers = this.users.filter(user => user.gender === gender);
+        }
+        console.log(filteredUsers);
+        this.diaplayUsers(filteredUsers);
     }
 }
 
@@ -142,5 +200,13 @@ userManager.addUsers(yamada);
 userManager.addUsers(aoki);
 
 userManager.diaplayUsers(userManager.getUsers());
+
+const gender = document.getElementById('gender');
+gender.addEventListener('change', function(e){
+    const selectedGenderOption = e.target.options[e.target.selectedIndex];
+    const selectedGenderValue = selectedGenderOption.value;
+    console.log(selectedGenderValue);
+    userManager.getfilteredUsersByGender(selectedGenderValue);
+});
 
 

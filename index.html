@@ -2,6 +2,7 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" href="favicon.ico">
         <title>JS</title>
         <link rel="stylesheet" href="style.css">
     </head>
@@ -9,16 +10,13 @@
         <h1>ユーザー一覧</h1>
         <h2>平均点: <span id="mean"></span>点</h2>
         <h2>標準偏差: <span id="stddev"></span></h2>
+        <select id="gender">
+            <option value="">性別を選択してください</option>
+            <option value="male">男性</option>
+            <option value="female">女性</option>
+        </select>
+        <span id="count"></span>
         <table id="dispUsers">
-            <tr>
-                <th>クラス名</th>
-                <th>名前</th>
-                <th>年齢</th>
-                <th>性別</th>
-                <th>得点</th>
-                <th>偏差値</th>
-                <th>特別アイテム</th>
-            </tr>
         </table>
         <script src="script.js"></script>
     </body>
