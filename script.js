@@ -1,5 +1,7 @@
 // 一般ユーザークラスの定義
 class User {
+    // ID
+    id;
     // 名前
     name;
     // 年齢
@@ -36,9 +38,13 @@ class SuperUser extends User {
 class UserManager{
     // 保持するユーザーインスタンスの配列
     users = [];
+    // 次に追加されたメンバーに付与する ID値
+    static count = 1;
 
     // ユーザーをユーザー配列に追加する
     addUsers(user){
+        user.id = UserManager.count;
+        UserManager.count++;
         this.users.push(user);
     }
 
@@ -54,6 +60,30 @@ class UserManager{
         if (index !== -1) {
             this.users.splice(index, 1); // 指定のインデックスを削除
         }
+        addDeleteActionForButton();
+    }
+
+    // 現状のユーザー一覧(users)から、所定のidを持つユーザー(user)を削除する
+    removeUserById(id){
+
+        this.users = this.users.filter(user => user.id != id);
+        this.diaplayUsers(this.users);
+        addDeleteActionForButton();
+        // const buttons = document.getElementsByTagName('button');
+
+        // for (let i = 0; i < buttons.length; i++) {
+        //     buttons[i].addEventListener('click', (e) => {
+        //         // console.log('Clicked!' + e.target.value);
+        //         let id = e.target.value;
+        //         console.log(id);
+        //         userManager.removeUserById(id);
+        //     });
+        // }
+        // // 配列内のインデックスを取得
+        // const index = this.users.indexOf(user);
+        // if (index !== -1) {
+        //     this.users.splice(index, 1); // 指定のインデックスを削除
+        // }
     }
 
     // 与えられたユーザー一覧(users)から平均値を計算して returnする
@@ -130,9 +160,19 @@ class UserManager{
         // <th></th>を表現するオブジェクトを新規生成
         let th = document.createElement('th');
         // <th>クラス名</th>を表現するように変更
+        th.textContent = 'ID';
+        // 以下を表現
+        // <tr>
+        //     <th>ID</th>
+        // </tr>
+        tr.appendChild(th);
+        // <th></th>を表現するオブジェクトを新規生成
+        th = document.createElement('th');
+        // <th>クラス名</th>を表現するように変更
         th.textContent = 'クラス名';
         // 以下を表現
         // <tr>
+        //     <th>ID</th>
         //     <th>クラス名</th>
         // </tr>
         tr.appendChild(th);
@@ -143,18 +183,19 @@ class UserManager{
         th.textContent = '名前';
         // 以下を表現
         // <tr>
+        //     <th>ID</th>
         //     <th>クラス名</th>
         //     <th>名前</th>
         // </tr>
         tr.appendChild(th);
 
-        
         // <th></th>を表現するオブジェクトを新規生成
         th = document.createElement('th');
         // <th>年齢</th>を表現するように変更
         th.textContent = '年齢';
         // 以下を表現
         // <tr>
+        //     <th>ID</th>
         //     <th>クラス名</th>
         //     <th>名前</th>
         //     <th>年齢</th>
@@ -167,6 +208,7 @@ class UserManager{
         th.textContent = '性別';
         // 以下を表現
         // <tr>
+        //     <th>ID</th>
         //     <th>クラス名</th>
         //     <th>名前</th>
         //     <th>年齢</th>
@@ -180,6 +222,7 @@ class UserManager{
         th.textContent = '得点';
         // 以下を表現
         // <tr>
+        //     <th>ID</th>
         //     <th>クラス名</th>
         //     <th>名前</th>
         //     <th>年齢</th>
@@ -194,6 +237,7 @@ class UserManager{
         th.textContent = '偏差値';
         // 以下を表現
         // <tr>
+        //     <th>ID</th>
         //     <th>クラス名</th>
         //     <th>名前</th>
         //     <th>年齢</th>
@@ -209,6 +253,7 @@ class UserManager{
         th.textContent = '特別アイテム';
         // 以下を表現
         // <tr>
+        //     <th>ID</th>
         //     <th>クラス名</th>
         //     <th>名前</th>
         //     <th>年齢</th>
@@ -219,16 +264,36 @@ class UserManager{
         // </tr>          
         tr.appendChild(th);
 
+        // <th></th>を表現するオブジェクトを新規生成
+        th = document.createElement('th');
+        // <th>名前</th>を表現するように変更
+        th.textContent = '操作';
+        // 以下を表現
+        // <tr>
+        //     <th>ID</th>
+        //     <th>クラス名</th>
+        //     <th>名前</th>
+        //     <th>年齢</th>
+        //     <th>性別</th>    
+        //     <th>得点</th>
+        //     <th>偏差値</th> 
+        //     <th>特別アイテム</th>
+        //     <th>操作</th>                           
+        // </tr>  
+        tr.appendChild(th);
+
         // 以下を表現
 		// <table id="dispUsers">
         //     <tr>
+        //         <th>ID</th>
         //         <th>クラス名</th>
         //         <th>名前</th>
         //         <th>年齢</th>
         //         <th>性別</th>    
         //         <th>得点</th>
         //         <th>偏差値</th> 
-        //         <th>特別アイテム</th>                           
+        //         <th>特別アイテム</th>  
+        //         <th>操作</th>                          
         //     </tr>
         // </table>
         dispUsers.appendChild(tr);
@@ -285,6 +350,10 @@ class UserManager{
             let tr = document.createElement('tr');
 
             let td = document.createElement('td');
+            td.textContent = user.id;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
             td.textContent = user.constructor.name;
             tr.appendChild(td);
 
@@ -311,11 +380,18 @@ class UserManager{
 
             td = document.createElement('td');
             console.log(user.deviation);
-            td.textContent = user.deviation;
+            td.textContent = isNaN(user.deviation) ? '偏差値は複数のユーザーの場合のみ計算されます' : user.deviation;
             tr.appendChild(td);
             
             td = document.createElement('td');
             td.textContent = user.item;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            let button = document.createElement('button');
+            button.textContent = '削除'
+            button.value = user.id;
+            td.appendChild(button);
             tr.appendChild(td);
             
             dispUsers.appendChild(tr);
@@ -337,6 +413,8 @@ class UserManager{
 
         // フィルタリングされたユーザー一覧(filteredUsers)を画面に表示
         this.diaplayUsers(filteredUsers);
+
+        addDeleteActionForButton();
     }
 }
 // ↑ ----- ここまでは、単なるクラス、関数の定義（約束ごとの定義）------
@@ -380,4 +458,26 @@ gender.addEventListener('change', function(e){
     userManager.getfilteredUsersByGender(selectedGenderValue);
 });
 
+
+const addDeleteActionForButton = () => {
+    const buttons = document.getElementsByTagName('button');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', (e) => {
+            let id = e.target.value;
+            console.log(id);
+            userManager.removeUserById(id);
+        });
+    }
+}
+
+addDeleteActionForButton();
+
+// 性別を選択した際のイベント処理の定義
+gender.addEventListener('change', function(e){
+    // 選択された性別の value値を取得
+    const selectedGenderOption = e.target.options[e.target.selectedIndex];
+    const selectedGenderValue = selectedGenderOption.value;
+    // useManagerの getfilteredUsersByGender関数を使って、選択された性別の情報のみを画面に表示
+    userManager.getfilteredUsersByGender(selectedGenderValue);
+});
 
