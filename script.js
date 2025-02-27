@@ -69,21 +69,6 @@ class UserManager{
         this.users = this.users.filter(user => user.id != id);
         this.diaplayUsers(this.users);
         addDeleteActionForButton();
-        // const buttons = document.getElementsByTagName('button');
-
-        // for (let i = 0; i < buttons.length; i++) {
-        //     buttons[i].addEventListener('click', (e) => {
-        //         // console.log('Clicked!' + e.target.value);
-        //         let id = e.target.value;
-        //         console.log(id);
-        //         userManager.removeUserById(id);
-        //     });
-        // }
-        // // 配列内のインデックスを取得
-        // const index = this.users.indexOf(user);
-        // if (index !== -1) {
-        //     this.users.splice(index, 1); // 指定のインデックスを削除
-        // }
     }
 
     // 与えられたユーザー一覧(users)から平均値を計算して returnする
